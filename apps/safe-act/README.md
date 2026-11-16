@@ -1,22 +1,9 @@
 # SafeAct
 
-Application 2 built on the SkillNecromancer skeleton.
+Part of **Loom** (Kiroween 2026 Skeleton Crew).
 
-Loads the `SafeAct` AI skill pack and queues cite-before-act approvals for mutate/destructive agent tool calls, with a full audit trail.
+SafeAct keeps agent actions inside explicit safety rails, using Loom skills for policy-shaped prompts and checklists shared via `skills/` and `core/`.
 
-## Run via web UI
+## Status
 
-From the repo root:
-
-```bash
-npm install
-npm run dev
-```
-
-Open [http://127.0.0.1:3847/safe-act](http://127.0.0.1:3847/safe-act).
-
-## Library entry
-
-```ts
-import { DEMO_PROPOSALS, queueToolAction, decideAction } from "./gate";
-```
+Demo surface under the Loom product shell. Skill definitions are not owned here—they are woven in from the monorepo root.

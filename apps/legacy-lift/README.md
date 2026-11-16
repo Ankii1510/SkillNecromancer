@@ -1,22 +1,9 @@
 # LegacyLift
 
-Application 1 built on the SkillNecromancer skeleton.
+Part of **Loom** (Kiroween 2026 Skeleton Crew).
 
-Loads the `LegacyLift` AI skill pack and modernizes dead-language snippets (COBOL, PHP, Bash, FORTRAN) into TypeScript/Python while listing invariants and warnings.
+LegacyLift applies Loom skills to aging codebases: inventory hotspots, propose modernization steps, and keep guidance tied to shared skill contracts in `skills/` and `core/`.
 
-## Run via web UI
+## Status
 
-From the repo root:
-
-```bash
-npm install
-npm run dev
-```
-
-Open [http://127.0.0.1:3847/legacy-lift](http://127.0.0.1:3847/legacy-lift).
-
-## Library entry
-
-```ts
-import { SAMPLE_SNIPPETS, modernizeSnippet } from "./modernize";
-```
+Demo surface under the Loom product shell. Skill definitions are not owned here—they are woven in from the monorepo root.

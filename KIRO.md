@@ -1,38 +1,40 @@
-# How Kiro was used — SkillNecromancer
+# KIRO.md — Loom Steering
 
-Judges: this project is designed so every major Kiro surface is visible in-repo.
+Product name: **Loom**
+Repo (GitHub): SkillNecromancer
+Hackathon: Kiroween 2026 — Skeleton Crew
 
-## Spec-driven development
+## Mission
 
-- Requirements, design, and tasks live in `.kiro/specs/skill-necromancer/`.
-- The Skeleton Crew rule (one foundation → two apps) is encoded as explicit requirements, not vibe-only chat.
+Weave reusable AI Skills into two demo surfaces:
 
-## Steering
+1. **LegacyLift** — lift aging codebases with guided modernization skills
+2. **SafeAct** — keep agent actions inside explicit safety rails
 
-- `.kiro/steering/product.md` locks architecture, sync rules for skills, and visual direction.
-- `.kiro/steering/testing.md` forces property-based tests for loader / modernization / approvals.
+## Non-negotiables
 
-## Agent hooks
+- Skills are first-class artifacts under `skills/`
+- Shared skill contracts live in `core/`
+- Apps consume skills; they do not own skill definitions
+- Specs and steering stay under `.kiro/`
 
-- `on-skill-edit` — when `skills/**/SKILL.md` changes, sync `core/skill-content.ts` and re-test.
-- `on-gate-change` — when SafeAct gate logic changes, re-validate approval properties.
+## Naming
 
-## Skills / Powers
+| Context | Use |
+|---------|-----|
+| Product / UI / docs brand | Loom |
+| GitHub repository | SkillNecromancer |
+| Package name | loom |
+| Spec folder | `.kiro/specs/loom/` |
 
-- `skills/legacy-lift/SKILL.md`, `skills/safe-act/SKILL.md`, `skills/shared/SKILL.md` are the reusable expertise packs.
-- The skeleton’s job is to load and validate these packs so new apps can plug in.
+Do not present SkillNecromancer as the product name in user-facing copy.
 
-## Property-based testing
+## Stack notes
 
-- `core/__tests__/skill-loader.pbt.test.ts` uses Vitest + fast-check.
-- Properties cover skill shape, modernization invariants, mandatory approvals, and audit matching.
+- TypeScript monorepo with Next.js app shell
+- Property-based tests for skill loading
+- Kiro specs drive design → requirements → tasks
 
-## MCP / Crew path
+## Current focus
 
-- SafeAct models cite-before-act middleware for MCP tool calls (approve mutate/destructive ops with citations).
-- Ready to wire to real MCP servers; demo uses sample proposals so judges need no credentials.
-
-## Apps from the skeleton
-
-1. **LegacyLift** — dead-tech resurrection via the LegacyLift skill.
-2. **SafeAct** — tool-leash UX via the SafeAct skill.
+Ship a coherent Loom brand across README, landing page, package metadata, and Kiro steering so judges and contributors meet one product name everywhere.

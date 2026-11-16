@@ -1,50 +1,46 @@
-# SkillNecromancer
+# Loom
 
-**Kiroween 2026 · Skeleton Crew**
+**Kiroween 2026 — Skeleton Crew**
 
-A reusable **AI Skills** skeleton for Kiro. One core loads `SKILL.md` packs; two distinct apps prove the foundation:
+Weave AI Skills into **LegacyLift** and **SafeAct**.
 
-| App | Path | What it does |
-|---|---|---|
-| **LegacyLift** | [`apps/legacy-lift`](apps/legacy-lift) | Resurrects COBOL / PHP / Bash / FORTRAN snippets into modern TypeScript or Python with invariants + warnings |
-| **SafeAct** | [`apps/safe-act`](apps/safe-act) | Cite-before-act gate for agent tool calls — approve/deny mutate & destructive ops with an audit trail |
+Loom is the product: a skill-first toolkit that threads reusable agent capabilities through modernization (LegacyLift) and guarded execution (SafeAct). The GitHub repository remains `SkillNecromancer`; everything user-facing is Loom.
 
-## Why this exists
+## Why Loom
 
-Winning Skeleton Crew / kit projects (InteractionKit, Impulse Kit) and MCP winners (Cite Before Act, Legacy Code Modernizer) share a pattern: **reusable agent expertise + two clear demos**. SkillNecromancer packages that as AI Skills for Kiro Crew / Powers / hooks / PBT.
+Legacy systems and autonomous agents both need structure. Loom treats skills as portable contracts—loadable, testable, and shared—so demos stay coherent instead of one-off prompts.
 
-## Quick start (cloud or local)
+## Surfaces
+
+| App | Role |
+|-----|------|
+| **LegacyLift** | Modernization skills for aging codebases |
+| **SafeAct** | Safety rails for agent actions |
+
+Shared skill content and loaders live under `skills/` and `core/`.
+
+## Quick start
 
 ```bash
 npm install
-npm run dev      # http://127.0.0.1:3847
-npm test         # property-based tests
-npm run build
+npm run dev
 ```
 
-## Repo map
+Open the app shell, then explore LegacyLift and SafeAct from the header.
+
+## Repository layout
 
 ```
-core/                 skill loader, registry, types
-skills/*/SKILL.md     LegacyLift, SafeAct, shared packs
-apps/legacy-lift/     application 1
-apps/safe-act/        application 2
-src/app/              Next.js UI
-.kiro/                specs, hooks, steering (do not gitignore)
+apps/           # LegacyLift & SafeAct
+core/           # Shared skill loading & contracts
+skills/         # Skill markdown and metadata
+src/            # Next.js product shell (Loom brand)
+.kiro/          # Steering + loom specs
 ```
 
-## How we use Kiro (submission write-up outline)
+## Specs
 
-- **Specs:** `.kiro/specs/skill-necromancer/` requirements → design → tasks
-- **Steering:** product + testing rules keep architecture and PBT consistent
-- **Hooks:** skill edit / gate change hooks re-sync content and re-run properties
-- **Skills / Powers:** `skills/*/SKILL.md` are the reusable expertise units
-- **PBT:** Vitest + fast-check encode loader, modernization, and approval invariants
-- **MCP (demo path):** SafeAct models cite-before-act middleware for tool servers
-
-## Sample data
-
-No API keys required. Legacy snippets and tool proposals are bundled samples labeled in the UI.
+Product design, requirements, and tasks: [`.kiro/specs/loom/`](.kiro/specs/loom/).
 
 ## License
 

@@ -1,83 +1,80 @@
-/** Bundled skill markdown — kept in sync with skills/<id>/SKILL.md for runtime loading without raw MD imports. */
+/**
+ * Loom core — shared skill content helpers.
+ * Product: Loom | Repo: SkillNecromancer
+ */
 
-export const LEGACY_LIFT_SKILL = `---
-name: LegacyLift
-description: Resurrect dead code languages into modern TypeScript/Python while preserving invariants.
-version: 1.0.0
-category: legacy-lift
-risk: mutate
-triggers: modernize, cobol, php, fortran, legacy, resurrect
-tools: parse_legacy, emit_modern, check_invariants
----
+export type SkillFrontmatter = {
+  name: string;
+  description?: string;
+  version?: string;
+  tags?: string[];
+};
 
-## Purpose
+export type SkillDocument = {
+  frontmatter: SkillFrontmatter;
+  body: string;
+  raw: string;
+};
 
-Use this skill when a developer wants to revive obsolete source into a maintainable modern language.
+const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
 
-## Workflow
+/**
+ * Parse a skill markdown document with optional YAML-ish frontmatter.
+ * Keys are treated as simple `key: value` lines (no nested YAML).
+ */
+export function parseSkillMarkdown(raw: string): SkillDocument {
+  const trimmed = raw.replace(/^\uFEFF/, "");
+  const match = FRONTMATTER_RE.exec(trimmed);
 
-1. Detect the dead language and extract intent from the snippet.
-2. Emit a modern equivalent in TypeScript or Python.
-3. List invariants that must hold after modernization.
-4. Flag risky assumptions as warnings — never silently drop business rules.
+  if (!match) {
+    return {
+      frontmatter: { name: "untitled" },
+      body: trimmed,
+      raw: trimmed,
+    };
+  }
 
-## Guardrails
+  const [, fmBlock, body] = match;
+  const frontmatter = parseSimpleFrontmatter(fmBlock);
+  if (!frontmatter.name) {
+    frontmatter.name = "untitled";
+  }
 
-- Prefer readable modern idioms over clever one-liners.
-- Keep I/O boundaries explicit.
-- When uncertain, add a warning instead of inventing payroll math.
-`;
+  return {
+    frontmatter: frontmatter as SkillFrontmatter,
+    body: body.trimStart(),
+    raw: trimmed,
+  };
+}
 
-export const SAFE_ACT_SKILL = `---
-name: SafeAct
-description: Cite-before-act gate for agent tool calls — require human approval before mutate or destructive operations.
-version: 1.0.0
-category: safe-act
-risk: destructive
-triggers: approve, cite, tool-call, mutate, delete, shell
-tools: queue_action, cite_source, approve_action, deny_action, audit_log
----
+function parseSimpleFrontmatter(block: string): Record<string, string | string[]> {
+  const result: Record<string, string | string[]> = {};
+  for (const line of block.split(/\r?\n/)) {
+    const idx = line.indexOf(":");
+    if (idx <= 0) continue;
+    const key = line.slice(0, idx).trim();
+    let value = line.slice(idx + 1).trim();
+    if (
+      (value.startsWith('[') && value.endsWith(']')) ||
+      value.includes(",")
+    ) {
+      const inner = value.replace(/^\[/, "").replace(/\]$/, "");
+      result[key] = inner
+        .split(",")
+        .map((s) => s.trim().replace(/^['"]|['"]$/g, ""))
+        .filter(Boolean);
+    } else {
+      result[key] = value.replace(/^['"]|['"]$/g, "");
+    }
+  }
+  return result;
+}
 
-## Purpose
-
-Wrap agent tool use so state-changing operations never run without an explicit human decision and a citation of why the tool was requested.
-
-## Workflow
-
-1. Intercept a proposed tool call.
-2. Attach a citation (skill rule, user ask, or spec clause).
-3. Queue the action as pending.
-4. On approve, record audit and mark executable.
-5. On deny, record reason and block execution.
-
-## Guardrails
-
-- Read-only tools may auto-pass when risk is \`read\`.
-- Mutate and destructive tools always require approval.
-- Never execute without an audit entry.
-`;
-
-export const SHARED_SKILL = `---
-name: SkillNecromancer Core
-description: Shared conventions for packaging AI Skills that plug into the SkillNecromancer skeleton.
-version: 1.0.0
-category: shared
-risk: read
-triggers: skill, pack, skeleton, registry
-tools: load_skill, validate_skill, list_skills
----
-
-## Purpose
-
-Define how SkillNecromancer loads, validates, and surfaces skill packs so multiple apps can share one skeleton.
-
-## Conventions
-
-- Every skill lives in \`skills/<id>/SKILL.md\`.
-- Frontmatter must include name, description, version, category, risk, triggers, tools.
-- Apps import the registry — they do not re-parse ad-hoc markdown.
-
-## Testing
-
-Property-based tests assert that valid frontmatter always loads into a skill with a stable id and required fields.
-`;
+/** Normalize skill id for Loom loaders (LegacyLift + SafeAct). */
+export function skillIdFromName(name: string): string {
+  return name
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}

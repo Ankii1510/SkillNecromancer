@@ -1,23 +1,24 @@
 ---
-name: SkillNecromancer Core
-description: Shared conventions for packaging AI Skills that plug into the SkillNecromancer skeleton.
-version: 1.0.0
-category: shared
-risk: read
-triggers: skill, pack, skeleton, registry
-tools: load_skill, validate_skill, list_skills
+name: loom-shared
+description: Shared Loom skill contract for LegacyLift and SafeAct
+version: 0.1.0
+tags: [loom, shared, kiroween]
 ---
 
-## Purpose
+# Loom shared skill
 
-Define how SkillNecromancer loads, validates, and surfaces skill packs so multiple apps can share one skeleton.
+This skill defines the baseline contract consumed by both demo surfaces.
 
-## Conventions
+## Intent
 
-- Every skill lives in `skills/<id>/SKILL.md`.
-- Frontmatter must include name, description, version, category, risk, triggers, tools.
-- Apps import the registry — they do not re-parse ad-hoc markdown.
+Provide a single, versioned skill document that LegacyLift and SafeAct can load through `core/` without duplicating frontmatter rules.
 
-## Testing
+## When to use
 
-Property-based tests assert that valid frontmatter always loads into a skill with a stable id and required fields.
+- Bootstrapping app-specific skills that extend shared Loom conventions
+- Verifying skill markdown parsing and id normalization
+
+## Outputs
+
+- Stable `name` / skill id
+- Human-readable body for agents and judges

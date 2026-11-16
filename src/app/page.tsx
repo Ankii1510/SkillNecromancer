@@ -1,121 +1,139 @@
 import Link from "next/link";
-import { loadBundledSkills } from "../../core/registry";
-import { SkillCard } from "@/components/SkillCard";
 
 export default function HomePage() {
-  const { packs, errors } = loadBundledSkills();
-
   return (
-    <div className="mx-auto max-w-6xl px-5 pb-20 pt-10 md:px-8 md:pt-14">
-      <section className="relative mb-16 grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
-        <div>
-          <p
-            className="rise-in mb-4 text-[11px] uppercase tracking-[0.28em] text-[var(--acid)]"
-            style={{ fontFamily: "var(--font-mono)" }}
-          >
-            Kiroween 2026 · Skeleton Crew
-          </p>
-          <h1
-            className="rise-in-delay max-w-3xl text-4xl leading-[1.05] text-[var(--bone)] md:text-6xl"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            SkillNecromancer
-          </h1>
-          <p className="rise-in-delay-2 mt-5 max-w-xl text-base leading-relaxed text-[var(--muted)] md:text-lg">
-            A lean AI Skills skeleton for Kiro. Pack reusable <code className="text-[var(--mist)]">SKILL.md</code>{" "}
-            expertise once, then raise two distinct apps from the same bones: LegacyLift and SafeAct.
-          </p>
-          <div className="rise-in-delay-2 mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/legacy-lift"
-              className="rounded-md bg-[var(--acid)] px-5 py-2.5 text-sm font-medium text-[#071008] transition hover:brightness-110"
-            >
-              Open LegacyLift
-            </Link>
-            <Link
-              href="/safe-act"
-              className="rounded-md border border-[var(--line)] px-5 py-2.5 text-sm text-[var(--ink)] transition hover:border-[var(--mist)] hover:text-[var(--mist)]"
-            >
-              Open SafeAct
-            </Link>
-          </div>
-        </div>
-
-        <div className="panel drift relative overflow-hidden rounded-3xl p-6">
-          <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[var(--glow)] blur-2xl" />
-          <p className="text-[11px] uppercase tracking-[0.22em] text-[var(--muted)]" style={{ fontFamily: "var(--font-mono)" }}>
-            Skeleton layout
-          </p>
-          <ul className="mt-4 space-y-3 text-sm text-[var(--ink)]" style={{ fontFamily: "var(--font-mono)" }}>
-            <li className="flex justify-between border-b border-[var(--line)] pb-2">
-              <span>core/</span>
-              <span className="text-[var(--muted)]">skill loader</span>
-            </li>
-            <li className="flex justify-between border-b border-[var(--line)] pb-2">
-              <span>skills/</span>
-              <span className="text-[var(--muted)]">SKILL.md packs</span>
-            </li>
-            <li className="flex justify-between border-b border-[var(--line)] pb-2">
-              <span>apps/legacy-lift</span>
-              <span className="text-[var(--acid)]">app 1</span>
-            </li>
-            <li className="flex justify-between">
-              <span>apps/safe-act</span>
-              <span className="text-[var(--mist)]">app 2</span>
-            </li>
-          </ul>
+    <main className="loom-home">
+      <section className="hero" aria-labelledby="loom-brand">
+        <p className="eyebrow">Kiroween 2026 · Skeleton Crew</p>
+        <h1 id="loom-brand">Loom</h1>
+        <p className="lede">
+          Weave AI Skills into LegacyLift and SafeAct—portable contracts for
+          modernization and guarded agent action.
+        </p>
+        <div className="cta-row">
+          <Link className="cta primary" href="/legacy-lift">
+            Open LegacyLift
+          </Link>
+          <Link className="cta secondary" href="/safe-act">
+            Open SafeAct
+          </Link>
         </div>
       </section>
 
-      <section className="mb-14">
-        <div className="mb-6 flex items-end justify-between gap-4">
-          <h2 className="text-2xl text-[var(--ink)]" style={{ fontFamily: "var(--font-display)" }}>
-            Loaded skill packs
-          </h2>
-          <p className="text-xs text-[var(--muted)]" style={{ fontFamily: "var(--font-mono)" }}>
-            {packs.length} packs · sample data (no API keys required)
-          </p>
-        </div>
-        {errors.length > 0 && (
-          <div className="mb-4 rounded-xl border border-[var(--ember)]/40 bg-[var(--ember)]/10 p-4 text-sm text-[var(--ember)]">
-            {errors.join(" · ")}
-          </div>
-        )}
-        <div className="grid gap-4 md:grid-cols-3">
-          {packs.map((pack) => (
-            <SkillCard key={pack.id} pack={pack} />
-          ))}
-        </div>
+      <section className="surfaces" aria-labelledby="surfaces-heading">
+        <h2 id="surfaces-heading">Two threads, one loom</h2>
+        <p>
+          Skills live once under <code>skills/</code>. Each app pulls the same
+          contracts through <code>core/</code>—no fork of truth per demo.
+        </p>
+        <ul>
+          <li>
+            <strong>LegacyLift</strong> — guided modernization skills for aging
+            codebases.
+          </li>
+          <li>
+            <strong>SafeAct</strong> — explicit rails so agent actions stay
+            inside policy.
+          </li>
+        </ul>
       </section>
 
-      <section className="panel rounded-3xl p-6 md:p-8">
-        <h2 className="text-xl text-[var(--bone)]" style={{ fontFamily: "var(--font-display)" }}>
-          Why this skeleton
-        </h2>
-        <div className="mt-4 grid gap-6 md:grid-cols-3">
-          {[
-            {
-              title: "One core",
-              body: "Parse, validate, and list skills once. Apps import the registry instead of reinventing prompts.",
-            },
-            {
-              title: "Two proofs",
-              body: "LegacyLift resurrects dead code. SafeAct gates dangerous tool calls with citations and audits.",
-            },
-            {
-              title: "Kiro-ready",
-              body: "Committed /.kiro specs, hooks, steering, and property-based tests for judgeable AI development.",
-            },
-          ].map((item) => (
-            <div key={item.title}>
-              <h3 className="mb-2 text-sm uppercase tracking-[0.16em] text-[var(--acid)]" style={{ fontFamily: "var(--font-mono)" }}>
-                {item.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-[var(--muted)]">{item.body}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-    </div>
+      <style>{`
+        .loom-home {
+          --ink: #1a1612;
+          --paper: #f3efe6;
+          --thread: #2f5d50;
+          --thread-deep: #1e3d35;
+          --warp: #c4a35a;
+          min-height: 100vh;
+          color: var(--ink);
+          background:
+            radial-gradient(ellipse 120% 80% at 10% -10%, #dfe8e4 0%, transparent 55%),
+            radial-gradient(ellipse 90% 70% at 100% 0%, #ebe0c8 0%, transparent 50%),
+            linear-gradient(165deg, #f7f3ea 0%, #e8e2d4 45%, #d5ddd8 100%);
+          font-family: "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+        }
+        .hero {
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: clamp(2rem, 6vw, 5rem);
+          max-width: 42rem;
+        }
+        .eyebrow {
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          font-size: 0.75rem;
+          color: var(--thread-deep);
+          margin: 0 0 1rem;
+          font-family: "Segoe UI", system-ui, sans-serif;
+        }
+        h1 {
+          font-size: clamp(3.5rem, 12vw, 6.5rem);
+          line-height: 0.95;
+          margin: 0 0 1.25rem;
+          font-weight: 700;
+          letter-spacing: -0.02em;
+          color: var(--thread-deep);
+        }
+        .lede {
+          font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+          line-height: 1.45;
+          margin: 0 0 2rem;
+          max-width: 28rem;
+        }
+        .cta-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.75rem 1rem;
+        }
+        .cta {
+          display: inline-block;
+          padding: 0.7rem 1.25rem;
+          text-decoration: none;
+          font-family: "Segoe UI", system-ui, sans-serif;
+          font-size: 0.95rem;
+          border: 1px solid var(--thread-deep);
+          transition: background 160ms ease, color 160ms ease;
+        }
+        .cta.primary {
+          background: var(--thread);
+          color: var(--paper);
+          border-color: var(--thread);
+        }
+        .cta.primary:hover {
+          background: var(--thread-deep);
+        }
+        .cta.secondary {
+          color: var(--thread-deep);
+          background: transparent;
+        }
+        .cta.secondary:hover {
+          background: rgba(30, 61, 53, 0.08);
+        }
+        .surfaces {
+          padding: clamp(2rem, 6vw, 4rem);
+          max-width: 40rem;
+          border-top: 1px solid rgba(30, 61, 53, 0.2);
+        }
+        .surfaces h2 {
+          font-size: 1.75rem;
+          margin: 0 0 0.75rem;
+          color: var(--thread-deep);
+        }
+        .surfaces p,
+        .surfaces li {
+          font-family: "Segoe UI", system-ui, sans-serif;
+          line-height: 1.5;
+        }
+        .surfaces ul {
+          padding-left: 1.2rem;
+        }
+        code {
+          font-size: 0.9em;
+        }
+      `}</style>
+    </main>
   );
 }
