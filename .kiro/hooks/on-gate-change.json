@@ -1,0 +1,12 @@
+{
+  "name": "on-gate-change",
+  "description": "When SafeAct gate logic changes, re-validate approval properties.",
+  "when": {
+    "type": "fileEdited",
+    "patterns": ["apps/safe-act/**/*.ts"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "SafeAct gate code changed. Confirm riskRequiresApproval still forces approval for write/delete/network/shell, and run the approve/deny audit property tests."
+  }
+}

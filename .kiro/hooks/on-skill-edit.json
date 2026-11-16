@@ -1,0 +1,12 @@
+{
+  "name": "on-skill-edit",
+  "description": "When a SKILL.md changes, remind the agent to sync core/skill-content.ts and re-run property tests.",
+  "when": {
+    "type": "fileEdited",
+    "patterns": ["skills/**/SKILL.md"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A SKILL.md file changed. Sync the matching export in core/skill-content.ts, ensure parseSkillMarkdown still succeeds, and run npm test focusing on skill-loader property tests."
+  }
+}
