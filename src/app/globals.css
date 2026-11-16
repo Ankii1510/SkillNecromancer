@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0c1210;
+  --bg-elevated: #14201b;
+  --ink: #e8f0ea;
+  --muted: #8fa396;
+  --bone: #d7c4a3;
+  --acid: #9ef01a;
+  --ember: #ff6b35;
+  --mist: #5eead4;
+  --line: rgba(232, 240, 234, 0.12);
+  --glow: rgba(158, 240, 26, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(158, 240, 26, 0.12), transparent 55%),
+    radial-gradient(900px 500px at 90% 0%, rgba(94, 234, 212, 0.1), transparent 50%),
+    linear-gradient(180deg, #0a100e 0%, #0c1210 40%, #101816 100%);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: rgba(158, 240, 26, 0.35);
+  color: #061008;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(158, 240, 26, 0.35);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(158, 240, 26, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(158, 240, 26, 0);
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.rise-in {
+  animation: rise-in 0.7s ease-out both;
+}
+
+.rise-in-delay {
+  animation: rise-in 0.8s ease-out 0.12s both;
+}
+
+.rise-in-delay-2 {
+  animation: rise-in 0.85s ease-out 0.22s both;
+}
+
+.pulse-pending {
+  animation: pulse-ring 1.8s ease-out infinite;
+}
+
+.drift {
+  animation: drift 5s ease-in-out infinite;
+}
+
+.grid-veil {
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(circle at center, black 35%, transparent 80%);
+}
+
+.panel {
+  border: 1px solid var(--line);
+  background: linear-gradient(160deg, rgba(20, 32, 27, 0.92), rgba(12, 18, 16, 0.88));
+  backdrop-filter: blur(10px);
+}
